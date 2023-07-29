@@ -15,7 +15,6 @@ permissions:
   id-token: write
   contents: read
 
-
 jobs:
   release-image:
     runs-on: ubuntu-latest
@@ -27,7 +26,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.aws-auth.outputs.registry }}
           REPOSITORY: devopsgirl2023/hello-ops-girl
-          IMAGE_TAG: ${{ github.sha }}
+          IMAGE_TAG: ${{ github.sha }}-huazhu
         run: |
           docker pull $REGISTRY/$REPOSITORY:$IMAGE_TAG 
           docker tag $REGISTRY/$REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:latest
@@ -41,7 +40,7 @@ jobs:
       HOSTED_ZONE_ID: ${{ secrets.HOSTED_ZONE_ID }}
       DOMAIN_NAME: ${{ github.event.repository.name }}.${{ secrets.DOMAIN_NAME }}
       STACK_NAME: ${{ github.event.repository.name }}
-      IMAGE_TAG: ${{ github.sha }}
+      IMAGE_TAG: ${{ github.sha }}-huazhu
     steps:
       - uses: actions/checkout@v3
       - id: aws-auth
